@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="assets_backend" name="Sale backend assets" inherit_id="web.assets_backend">
+    <xpath expr="." position="inside">
+      <link rel="stylesheet" href="/vehicle_record/static/src/css/vehicle_record.css"/>
+      <script type="text/javascript" src="/vehicle_record/static/src/js/vehicle_record.js"/>
+    </xpath>
+  </template>
+</odoo>

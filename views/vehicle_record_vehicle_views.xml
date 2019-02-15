@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="vehicle_record_vehicle_view_form" model="ir.ui.view">
+    <field name="name">vehicle_record.vehicle.form</field>
+    <field name="model">vehicle_record.vehicle</field>
+    <field name="arch" type="xml">
+      <form string="Vehicle">
+        <sheet>
+          <div class="oe_title">
+            <label for="plate_number" class="oe_edit_only"/>
+            <h1>
+              <field name="plate_number" placeholder="e.g. WXY-123"/>
+            </h1>
+            <label for="brand_name" class="oe_edit_only"/>
+            <h2>
+              <field name="brand_name" class="oe_inline" placeholder="e.g. Toyota"/>
+            </h2>
+            <label for="model_name" class="oe_edit_only"/>
+            <h2>
+              <field name="model_name" class="oe_inline" placeholder="e.g. Corolla"/>
+            </h2>
+            <label for="mileage" class="oe_edit_only"/>
+            <h2>
+              <field name="mileage" class="oe_inline" placeholder="e.g. 15,120"/>
+            </h2>
+          </div>
+          <group col="2" string="Registro de mantenimiento">
+            <field name="maintenance_record"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <record id="vehicle_record_vehicle_view_tree" model="ir.ui.view">
+    <field name="name">vehicle_record.vehicle.tree</field>
+    <field name="model">vehicle_record.vehicle</field>
+    <field name="arch" type="xml">
+      <tree string="Vehicle">
+        <field name="plate_number"/>
+        <field name="brand_name"/>
+        <field name="model_name"/>
+        <field name="mileage"/>
+      </tree>
+    </field>
+  </record>
+  <record id="vehicle_record_vehicle_view_kanban" model="ir.ui.view">
+    <field name="name">vehicle_record.vehicle.kanban</field>
+    <field name="model">vehicle_record.vehicle</field>
+    <field name="arch" type="xml">
+      <kanban>
+        <templates>
+          <field name="status"/>
+          <field name="plate_number"/>
+          <field name="brand_name"/>
+          <field name="model_name"/>
+          <field name="mileage"/>
+          <field name="current_status"/>
+          <t t-name="kanban-box">
+            <t t-log="record.current_status.value" />
+            <t t-if="record.current_status.value == 'checked'">
+                <div class="oe_kanban_global_click" style="background: green;">
+                <div class="oe_kanban_details">
+                  <strong class="o_kanban_record_title"><field name="plate_number"/>
+                        :
+                        <field name="model_name"/>
+                    </strong>
+                  <field name="plate_number"/>
+                  <field name="brand_name"/>
+                  <field name="model_name"/>
+                  <field name="mileage"/>
+                </div>
+              </div>
+            </t>
+            <t t-if="record.current_status.value == 'unchecked'">
+              <div t-attf-class="oe_kanban_global_click" style="background: red;">
+                <div class="oe_kanban_details">
+                  <strong class="o_kanban_record_title"><field name="plate_number"/>
+                        :
+                        <field name="model_name"/>
+                    </strong>
+                  <field name="plate_number"/>
+                  <field name="brand_name"/>
+                  <field name="model_name"/>
+                  <field name="mileage"/>
+                </div>
+              </div>
+            </t>
+            <t t-if="record.current_status.value == 'pending'">
+              <div t-attf-class="oe_kanban_global_click" style="background: yellow;">
+                <div class="oe_kanban_details">
+                  <strong class="o_kanban_record_title"><field name="plate_number"/>
+                        :
+                        <field name="model_name"/>
+                    </strong>
+                  <field name="plate_number"/>
+                  <field name="brand_name"/>
+                  <field name="model_name"/>
+                  <field name="mileage"/>
+                </div>
+              </div>
+            </t>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+  <record id="vehicle_record_vehicle_action" model="ir.actions.act_window">
+    <field name="name">Vehicles</field>
+    <field name="res_model">vehicle_record.vehicle</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+          Haz click para registrar un nuevo auto.
+      </p>
+      <p>
+          Serás capaz de programar mantenimientos para el auto y mantener un registro
+          de las acciones realizadas en cada mantenimiento.
+        </p>
+      <p>
+            Odoo te avisará cuando un auto no haya recibido mantenimiento a tiempo.
+          </p>
+    </field>
+  </record>
+  <menuitem name="Vehicles" parent="menu_root" id="vehicle_record_vehicles" sequence="2" groups="vehicle_record_group_user"/>
+  <menuitem action="vehicle_record_vehicle_action" parent="vehicle_record_vehicles" id="vehicle_record_vehicle_menu" groups="vehicle_record_group_user"/>
+</odoo>

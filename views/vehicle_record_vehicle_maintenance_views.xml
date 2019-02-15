@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="vehicle_record_vehicle_maintenance_view_form" model="ir.ui.view">
+    <field name="name">vehicle_record.vehicle.maintenance.record.form</field>
+    <field name="model">vehicle_record.vehicle.maintenance.record</field>
+    <field name="arch" type="xml">
+      <form string="Maintenance">
+        <header>
+            <button
+                string="Ejecutar mantenimiento"
+                type="object"
+                name="execute_maintenance"
+                attrs="{'invisible': [('status', '!=', 'scheduled'),]}" />
+            <button
+                string="Finalizar mantenimiento"
+                type="object"
+                name="finish_maintenance"
+                attrs="{'invisible': [('status', '!=', 'inprogress'),]}" />
+            <field name="status" widget="statusbar" />
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <label for="vehicle" class="oe_edit_only"/>
+            <h1>
+                <field
+                    name="vehicle"
+                    placeholder="e.g. WXY-123"
+                    attrs="{'readonly': [('status', '!=', 'draft'),]}" />
+            </h1>
+            <label for="due_date" class="oe_edit_only"/>
+            <h1>
+                <field
+                    name="due_date"
+                    attrs="{'readonly': [('status', '!=', 'draft'),]}" />
+            </h1>
+            <label for="started" class="oe_edit_only"/>
+            <h2>
+                <field
+                    name="started"
+                    class="oe_inline"
+                    placeholder="Sin definir"
+                    attrs="{'readonly': True}" />
+            </h2>
+            <label for="finished" class="oe_edit_only"/>
+            <h2>
+                <field
+                    name="finished"
+                    class="oe_inline"
+                    placeholder="Sin definir"
+                    attrs="{'readonly': True}"/>
+            </h2>
+            <label for="description" class="oe_edit_only"/>
+            <h2>
+                <field
+                    name="description"
+                    class="oe_inline"
+                    placeholder="No hay detalles"
+                    attrs="{'readonly': [('status', '!=', 'scheduled'),]}"/>
+            </h2>
+            <div
+                attrs="{'invisible': [('status', 'in', ['draft', 'scheduled']),]}">
+                <label for="next_maintenance_date" class="oe_edit_only"/>
+                <h2>
+                    <field
+                        name="next_maintenance_date"
+                        placeholder="Sin definir"
+                        class="oe_inline" />
+                </h2>
+            </div>
+          </div>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <record id="vehicle_record_vehicle_maintenance_view_tree" model="ir.ui.view">
+    <field name="name">vehicle_record.vehicle.maintenance.record.tree</field>
+    <field name="model">vehicle_record.vehicle.maintenance.record</field>
+    <field name="arch" type="xml">
+      <tree string="Maintenance">
+        <field
+            name="vehicle"/>
+        <field
+            name="due_date" />
+        <field
+            name="started"/>
+        <field
+            name="finished"/>
+        <field
+            name="description"/>
+        <field
+            name="next_maintenance_date"/>
+      </tree>
+    </field>
+  </record>
+  <record id="vehicle_record_vehicle_maintenance_action" model="ir.actions.act_window">
+    <field name="name">Mantenimiento vehiculo</field>
+    <field name="res_model">vehicle_record.vehicle.maintenance.record</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">
+          Haz click para programar un nuevo mantenimiento.
+      </p>
+    </field>
+  </record>
+  <menuitem
+      action="vehicle_record_vehicle_maintenance_action"
+      parent="vehicle_record_vehicles"
+      id="vehicle_record_vehicle_maintenance_menu"
+      groups="vehicle_record_group_user" />
+</odoo>

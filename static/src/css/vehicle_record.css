@@ -1,0 +1,10 @@
+@charset "utf-8";
+.checked {
+	background: green;
+}
+.unchecked {
+    background: red;
+}
+.pending {
+    background: yellow;
+}

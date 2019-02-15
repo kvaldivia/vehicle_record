@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+      <menuitem
+          name="Vehicle record"
+          id="menu_root"
+          sequence="125"
+          groups="vehicle_record_group_user"
+          web_icon="vehicle_record,static/description/icon.png"/>
+  </data>
+</odoo>
