@@ -40,7 +40,6 @@ class Vehicle(models.Model):
         if 'maintenance_record' not in data.keys():
             raise UserError(
                 'Debe programar al menos un mantenimiento para el vehiculo')
-        import pudb; pudb.set_trace()
         values = data['maintenance_record']
         data['status'] = self.update_status(values=values)
         data['current_status'] = data['status']
@@ -105,8 +104,6 @@ class Vehicle(models.Model):
     @api.depends('status')
     def update_current_status_key(self):
         for state in VEHICLE_STATUS:
-            import pudb
-            pudb.set_trace()
             key = state[0]
             value = state[1]
             if self.status == value:
